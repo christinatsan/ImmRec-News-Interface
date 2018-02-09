@@ -1,9 +1,10 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
+
 app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def index():
-	return "Index!"
+	return render_template('index.html')
 
 @app.route("/categories")
 def categories():
