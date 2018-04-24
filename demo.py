@@ -1,6 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort, Response, jsonify
 import json
-from flask.ext.session import Session
+#from flask.ext.session import Session
 from forms import LoginForm
 
 app = Flask(__name__, static_url_path='/static')
