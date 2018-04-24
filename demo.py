@@ -1,7 +1,12 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort, Response, jsonify
 import json
+from flask.ext.session import Session
 
 app = Flask(__name__, static_url_path='/static')
+
+chosenTags1 = []
+chosenTags2 = []
+chosenTags3 = []
 
 @app.route("/",methods=['post','get'])
 def index():
@@ -31,6 +36,11 @@ def categories():
 
 @app.route("/categories2")
 def categories2():
+
+	global chosenTags1
+
+	# TODO: get categories/tags based on chosenTags1
+
 	categoryList = [
 				{
 					'tag': 'Tag 3',
@@ -54,6 +64,12 @@ def categories2():
 
 @app.route("/categories3")
 def categories3():
+
+	global chosenTags2
+
+	# TODO: get categories/tags based on chosenTags2
+
+
 	categoryList = [
 				{
 					'tag': 'Tag 5',
@@ -77,18 +93,79 @@ def categories3():
 @app.route("/recommendations")
 def recommendations():
 
-	return render_template('recommendations.html')
+	global chosenTags3
+
+	print(chosenTags3)
+
+	#given tags get articles
+
+	articleList = [
+				{
+					'tag': 'Tag 1',
+					'title': 'News 1',
+					'description':'news',
+					'author':'author'
+					
+
+				},
+				{
+					'tag': 'Tag 2',
+					'title':'News 2',
+					'description': 'news',
+					'author':'author'
+
+				},
+				{
+					'tag': 'Tag 3',
+					'title': 'News 3',
+					'description':'news',
+					'author':'author'
+					
+
+				},
+				{
+					'tag': 'Tag 3',
+					'title':'News 4',
+					'description': 'news',
+					'author':'author'
+
+				},	
+				{
+					'tag': 'Tag 4',
+					'title': 'News 5',
+					'description':'news',
+					'author':'author'
+					
+
+				},
+				{
+					'tag': 'Tag 5',
+					'title':'News 6',
+					'description': 'news',
+					'author':'author'
+
+				},	
+				{
+					'tag': 'Tag 6',
+					'title':'News 7',
+					'description': 'news',
+					'author':'author'
+
+				},										
+			]	
+
+	return render_template('recommendations.html',articles = articleList)
 
 @app.route('/postmethod2', methods = ['POST'])
 def get_post_javascript_data2():
     jsdata = request.form['javascript_data']
     jsonData = json.loads(jsdata)
 
-    chosenTagsList = []
+    global chosenTags2
 
     for i in range(len(jsonData)):
     	tag = jsonData[str(i)]['item']
-    	chosenTagsList.append(tag)
+    	chosenTags2.append(tag)
 
     return jsonify(jsonData)
 
@@ -97,11 +174,11 @@ def get_post_javascript_data1():
     jsdata = request.form['javascript_data']
     jsonData = json.loads(jsdata)
 
-    chosenTagsList = []
+    global chosenTags1
 
     for i in range(len(jsonData)):
     	tag = jsonData[str(i)]['item']
-    	chosenTagsList.append(tag)
+    	chosenTags1.append(tag)
     	
     return jsonify(jsonData)
 
@@ -110,11 +187,11 @@ def get_post_javascript_data3():
     jsdata = request.form['javascript_data']
     jsonData = json.loads(jsdata)
 
-    chosenTagsList = []
+    global chosenTags3
 
     for i in range(len(jsonData)):
     	tag = jsonData[str(i)]['item']
-    	chosenTagsList.append(tag)
+    	chosenTags3.append(tag)
     	
     return jsonify(jsonData)
 
