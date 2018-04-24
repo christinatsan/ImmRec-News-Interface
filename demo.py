@@ -1,8 +1,10 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort, Response, jsonify
 import json
 from flask.ext.session import Session
+from forms import LoginForm
 
 app = Flask(__name__, static_url_path='/static')
+app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 chosenTags1 = []
 chosenTags2 = []
@@ -104,6 +106,8 @@ def recommendations():
 					'tag': 'Tag 1',
 					'title': 'News 1',
 					'description':'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 					
 
@@ -112,6 +116,8 @@ def recommendations():
 					'tag': 'Tag 2',
 					'title':'News 2',
 					'description': 'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 
 				},
@@ -119,6 +125,8 @@ def recommendations():
 					'tag': 'Tag 3',
 					'title': 'News 3',
 					'description':'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 					
 
@@ -127,6 +135,8 @@ def recommendations():
 					'tag': 'Tag 3',
 					'title':'News 4',
 					'description': 'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 
 				},	
@@ -134,6 +144,8 @@ def recommendations():
 					'tag': 'Tag 4',
 					'title': 'News 5',
 					'description':'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 					
 
@@ -142,6 +154,8 @@ def recommendations():
 					'tag': 'Tag 5',
 					'title':'News 6',
 					'description': 'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 
 				},	
@@ -149,6 +163,8 @@ def recommendations():
 					'tag': 'Tag 6',
 					'title':'News 7',
 					'description': 'news',
+					'imgUrl':'/static/images/news.jpeg',
+					'url':'http://www.medium.com',
 					'author':'author'
 
 				},										
@@ -204,10 +220,14 @@ def preferences(category):
 	#print(catTitle['title'])
 	return render_template('refinedlist.html',category = category)
 
+@app.route("/onboarding/")
+def onboarding():
+	form = LoginForm()
+	return render_template('onboarding.html', title='Sign In', form=form)
 # @app.route("/onboarding/<string:name>/")
 # def members(name):
-#     return render_template(
-#         'test.html',name=name)
+#     return render_template('test.html',name=name)
+
 
 # @app.route("/refinedlist")
 # def refinedlist():
